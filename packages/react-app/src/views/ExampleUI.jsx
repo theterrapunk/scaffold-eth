@@ -60,7 +60,9 @@ export default function ExampleUI({
             Set Purpose!
           </Button>
         </div>
-        
+        {/*
+        ⚙️ Let's build another UI that does deposit / withdraw:
+      */}
         <div style={{ margin: 8 }}>
           <Input
             onChange={e => {

@@ -10,6 +10,7 @@ contract YourContract {
 
     string public purpose = "Building Unstoppable Apps!!!";
 
+    address payable public depositor;
 
     // Event declaration
     // Up to 3 parameters can be indexed.
@@ -50,10 +51,17 @@ contract YourContract {
         emit AnotherLog();
     }
 
+    // Function to show contract balance
+    function showBalance() public view returns (uint) {
+        return address(this).balance;
+    }
+
     // Function to deposit Ether into this contract.
     // Call this function along with some Ether.
     // The balance of this contract will be automatically updated.
-    function deposit() public payable {}
+    function deposit() public payable {
+        depositor = payable(msg.sender);
+    }
 
     // Function to withdraw all Ether from this contract.
         function withdraw() public {
@@ -62,7 +70,7 @@ contract YourContract {
 
         // send all Ether to owner
         // Owner can receive Ether since the address of owner is payable
-        (bool success, ) = msg.sender.call{value: amount}("");
+        (bool success, ) = depositor.call{value: amount}("");
         require(success, "Failed to send Ether");
     }
 
